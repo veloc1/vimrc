@@ -55,7 +55,7 @@ set guioptions-=T
 noremap <C-TAB> <C-W>w
 
 autocmd VimEnter * NERDTree
-map <C-n> :NERDTreeToggle<CR>
+noremap <C-n> :NERDTreeToggle<CR>
 autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 set statusline+=%#warningmsg#
