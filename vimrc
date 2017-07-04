@@ -40,16 +40,16 @@ set wildmenu
 
 set showmatch
 
-set incsearch
-set hlsearch
+set incsearch       " highlight search results
+set hlsearch        " keep matches highlited
 
 filetype plugin on
 filetype indent on
 
-set sw=4
-set tabstop=4
-set softtabstop=4
-set expandtab
+set sw          =2
+set tabstop     =2       
+set softtabstop =2  " tab key extends to 2 spaces
+set expandtab       " use spaces, not tabs
 
 set guioptions-=T
 noremap <C-TAB> <C-W>w
