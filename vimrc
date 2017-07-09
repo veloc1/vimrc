@@ -14,6 +14,8 @@ Plug 'vim-syntastic/syntastic'
 
 Plug 'elixir-lang/vim-elixir'
 
+Plug 'whatyouhide/vim-gotham'
+
 call plug#end()
 
 set encoding=utf-8
@@ -22,9 +24,9 @@ setlocal spell spelllang=ru_ru,en_us
 autocmd BufNewFile,BufReadPost *.md,*.markdown set filetype=markdown
 autocmd FileType markdown set tw=80
 
-colorscheme wombat
+colorscheme gotham256
 
-let g:airline_theme ='wombat'
+" let g:airline_theme ='wombat'
 let g:airline_powerline_fonts = 0
 set guifont=Consolas:h10
 
@@ -66,3 +68,34 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+
+" temp files config
+let path_to_temp = $HOME.'/.vim/files/'
+if has("win32") 
+  let path_to_temp = $HOME.'\vimfiles\files\'
+endif
+" create temp file
+if !isdirectory(path_to_temp) && exists('*mkdir')
+  call mkdir(path_to_temp)
+  call mkdir(path_to_temp.'backup')
+  call mkdir(path_to_temp.'swap')
+  call mkdir(path_to_temp.'undo')
+endif
+
+" backup
+set backup
+let &backupdir    =path_to_temp.'backup/'
+set backupext     =-vimbackup
+set backupskip    =
+" swap
+let &directory    =path_to_temp.'swap//'
+" undo
+set undofile
+let &undodir      =path_to_temp.'undo//'
+
+" autocmd that reads last cursor position from this file and go to this
+" position on file open
+autocmd BufReadPost * 
+      \ if line("'\"") > 1 && line("'\"") <= line("$") |
+      \ execute "normal! g`\"" |
+      \ endif
