@@ -28,7 +28,7 @@ colorscheme gotham256
 
 " let g:airline_theme ='wombat'
 let g:airline_powerline_fonts = 0
-set guifont=Consolas:h10
+set guifont=Consolas:h12
 
 source $VIMRUNTIME/delmenu.vim
 set langmenu=ru_RU.UTF-8
@@ -38,6 +38,9 @@ syntax on
 set number
 set showcmd
 set cursorline
+" Color column at 80
+set colorcolumn =80
+hi ColorColumn guibg=#0a1f2e
 set wildmenu
 
 set showmatch
@@ -99,3 +102,19 @@ autocmd BufReadPost *
       \ if line("'\"") > 1 && line("'\"") <= line("$") |
       \ execute "normal! g`\"" |
       \ endif
+
+" Projects
+function GoTo(project)
+  if a:project=="Pozzt"
+    cd C:\UserData\Work\Pozzt
+  elseif a:project=="PozztApp"
+    cd C:\UserData\Work\PozztApp
+  else
+    echo "No project found"
+  endif
+  NERDTreeCWD
+endfunction
+command -nargs=1 GoTo call GoTo('<args>')
+
+" Todo list
+command Todo noautocmd vimgrep /TODO\|FIXME/j ** | cw
